@@ -1,4 +1,12 @@
-video {
-    margin-left: 5rem;
+#other{
     max-height: 10rem;
+}
+
+.ps {
+    overflow: auto;
+}
+
+
+.user-chats{
+    min-height: 20rem;
 }

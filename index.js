@@ -9,17 +9,11 @@ const crypto = require("crypto");
 
 app.use(expressip().getIpInfoMiddleware);
 
-// let connectedClients = [];
-let clientMap = new Map();
-let roomIds = [];
-let rooms = new Map();
-let single = false;
-let freeClients = [];
 
-
-const connectedClients = [];
-const singleClients = [];
-
+let connectedClients = new Map();
+let connectedClientsIds = [];
+let singleClients = [];
+const rooms = new Map();
 
 app.use(cors());
 app.use(express.static('public'));
@@ -39,118 +33,142 @@ app.get('/api/', function (req, res) {
 
 io.on('connect', socket => {
 
-    const { user } = socket.handshake.query;
-    console.log(user.id);
+    const { id, ipDetails, ip } = socket.handshake.query;
 
+    connectedClientsIds = connectedClientsIds.filter(client => client.id !== id);
+    const client = { id, socket, ip, ipDetails };
+    connectedClientsIds.push(id);
+    connectedClients.set(id, client);
 
-    // if (connectedClients.indexOf(socket.id) < 0) {
-    //     connectedClients.push(socket.id);
-    //     clientMap.set(socket.id, { socket });
-    //     if (!single) {
-    //         //Set SIngle Client
-    //         freeClients.push(socket.id);
-    //         single = true;
-    //     } else if (single && freeClients.length) {
-    //         //If single exists join both in room
+    socket.emit('ready-for-pairing');
 
-    //         const id = crypto.randomBytes(20).toString('hex');
-    //         let fistClientDetails = clientMap.get(socket.id);
-    //         fistClientDetails['room'] = id;
+    socket.on('start-pairing', (data, cb) => {
+        const { id, preferences } = data;
+        if (!singleClients.length) {
+            const client = connectedClients.get(id);
+            client.preferences = preferences;
+            if (singleClients.indexOf(id) < 0)
+                singleClients.push(id);
+            cb();
+            return;
+        }
 
-    //         //finding single filter logic here on freeClients Arr
+        if (!preferences) {
+            const client = connectedClients.get(id);
+            client.preferences = preferences;
+            if (singleClients[0] === id) {
+                cb();
+                return;
+            }
 
-    //         let second = freeClients.pop();
-    //         let secondClientDetails = clientMap.get(second);
-    //         secondClientDetails['room'] = id;
-    //         roomIds.push(id);
-    //         rooms.set(id, [socket.id, second]);
-    //         //inform both room that joined in room
-    //         io.to(socket.id).emit('second-connected');
-    //         io.to(second).emit('second-connected');
-    //         single = false;
-    //     }
-    // }
+            const oId = singleClients.shift();
+            const otherClient = connectedClients.get(oId);
+            const room = {
+                id: crypto.randomBytes(20).toString('hex'),
+                clients: [client.id, otherClient.id]
+            };
+            client.room = room.id;
+            client.other = otherClient;
+            otherClient.room = room.id;
+            otherClient.other = client;
+            rooms.set(room.id, room);
+            cb();
+            return;
 
-    console.log(roomIds, single);
-
-    //pass ice candidates among both the clients
-    socket.on('candidate', data => {
-        const { candidate, id, type } = data;
-        const client = clientMap.get(id);
-        const room = rooms.get(client['room']);
-        const otherClientId = room.filter(CId => CId !== id)[0];
-        io.to(otherClientId).emit('candidate', { candidate, type });
+        }
     });
 
 
-    //forawrd offer to the other user in the room
     socket.on('offer', data => {
         const { offer, id } = data;
-        const client = clientMap.get(id);
-        const room = rooms.get(client['room']);
-        const otherClientId = room.filter(CId => CId !== id)[0];
-        io.to(otherClientId).emit('offer', { offer, id });
+        console.log(singleClients);
+        const client = connectedClients.get(id);
+
+        if (!client.room) {
+            client.waiting = true;
+            return;
+        }
+
+        if (client.other.waiting) {
+            io.to(client.other.socket.id).emit('send-new-offer');
+            client.other.waiting = undefined;
+        }
+
+        io.to(client.other.socket.id).emit('offer', { offer });
+        return;
     });
+
+    socket.on('candidate', data => {
+        const { id, candidate, type } = data;
+        const client = connectedClients.get(id);
+        if (client.other)
+            io.to(client.other.socket.id).emit('candidate', { candidate, type });
+    });
+
 
     //forawrd answer to the offer creator
     socket.on('answer', data => {
         const { answer, id } = data;
-        const client = clientMap.get(id);
-        const room = rooms.get(client['room']);
-        const otherClientId = room.filter(CId => CId !== id)[0];
-        io.to(otherClientId).emit('answer', { answer });
+        const client = connectedClients.get(id);
+        io.to(client.other.socket.id).emit('answer', { answer });
+    });
+
+
+    socket.on('stop', data => {
+        const { id } = data;
+        const client = connectedClients.get(id);
+
+        if (client.room) {
+            const otherClient = connectedClients.get(client.other.id);
+
+            io.to(otherClient.socket.id).emit('pairing-end');
+
+            // singleClients.push(otherClient.id);
+            // singleClients.push(client.id);
+            rooms.delete(client.room);
+
+            delete client.other;
+            delete otherClient.other;
+
+            delete client.room;
+            delete otherClient.room;
+        }
+    });
+
+    socket.on('disconnect', (reason) => {
+        let id = null;
+        connectedClientsIds.forEach(cId => {
+            const client = connectedClients.get(cId);
+            if (socket.id === client.socket.id) {
+                id = cId;
+            }
+        });
+
+        if (id) {
+            const client = connectedClients.get(id);
+
+
+            if (client.room) {
+                const otherClient = connectedClients.get(client.other.id);
+                io.to(otherClient.socket.id).emit('pairing-end');
+
+                // singleClients.push(otherClient.id);
+                rooms.delete(client.room);
+                delete otherClient.room;
+            }
+
+            connectedClientsIds = connectedClientsIds.filter(cId => cId !== id);
+            singleClients = singleClients.filter(cId => cId !== id);
+            connectedClients.delete(id);
+
+        }
     });
 
     //deliver chat to the other person
     socket.on('chat-msg', data => {
         const { msg, id } = data;
-        const client = clientMap.get(id);
-        const room = rooms.get(client['room']);
-        const otherClientId = room.filter(CId => CId !== id)[0];
-        io.to(otherClientId).emit('chat-msg', { msg });
-    });
-
-
-    //on socket disconnect
-    socket.on('disconnect', (reason) => {
-        connectedClients = connectedClients.filter(id => id !== socket.id);
-        freeClients = freeClients.filter(id => id !== socket.id);
-        if (clientMap.has(socket.id)) {
-            let client = clientMap.get(socket.id);
-            let roomId = client['room'];
-            if (roomId) {
-                const otherClient = rooms.get(roomId).filter(id => id !== socket.id)[0];
-                clientMap.get(otherClient)['room'] = undefined;
-                rooms.delete(roomId);
-                roomIds = roomIds.filter(id => id !== roomId);
-
-                //if Signle mix it to the single
-                if (single) {
-                    const id = crypto.randomBytes(20).toString('hex');
-                    let fistClientDetails = clientMap.get(otherClient);
-                    fistClientDetails['room'] = id;
-                    let second = freeClients.pop();
-                    if (second) {
-                        let secondClientDetails = clientMap.get(second);
-                        secondClientDetails['room'] = id;
-                        roomIds.push(id);
-                        rooms.set(id, [otherClient, second]);
-                        io.to(otherClient).emit('second-connected');
-                        io.to(second).emit('second-connected');
-                        single = false;
-                    }
-                } else if (!single) {
-
-                    //if no single push to the single queue
-                    freeClients.push(otherClient);
-                    single = true;
-                    io.to(otherClient).emit('second-disconnected');
-                }
-            }
-            clientMap.delete(socket.id);
-        }
-
-        console.log(roomIds, single);
+        const client = connectedClients.get(id);
+        io.to(client.other.socket.id).emit('chat-msg', { msg });
     });
 
 

@@ -35,6 +35,7 @@
     <!-- BEGIN: Custom CSS-->
     <!-- {{ style('/dist/app/css/app.css') }} -->
 
+    <link rel="stylesheet" href="/app.css">
     <!-- END: Custom CSS-->
     <style>
         .horizontal-menu.navbar-floating:not(.blank-page) .app-content {
@@ -223,11 +224,9 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="embed-responsive embed-responsive-item embed-responsive-16by9">
-                                        <video id="other"
-                                            class="embed-responsive embed-responsive-item embed-responsive-16by9 video-container"
-                                            muted autoplay></video>
-                                    </div>
+                                    <video id="other"
+                                        class="embed-responsive embed-responsive-item embed-responsive-16by9 video-container"
+                                        autoplay muted></video>
                                     <div class="card chat-application">
                                         <div class="chat-app-window">
                                             <div class="user-chats ps">
@@ -239,10 +238,7 @@
 
                                                             </a>
                                                         </div>
-                                                        <div class="chat-body" id="chat-body">
-                                                            <div class="chat-content">
-                                                                
-                                                            </div>
+                                                        <div class="chat-body" id="chat-left-body">
                                                         </div>
                                                     </div>
                                                     <div class="chat">
@@ -252,9 +248,7 @@
 
                                                             </a>
                                                         </div>
-                                                        <div class="chat-body">
-                                                            <div class="chat-content">
-                                                            </div>
+                                                        <div class="chat-body" id="chat-right-body">
                                                         </div>
                                                     </div>
                                                 </div>
