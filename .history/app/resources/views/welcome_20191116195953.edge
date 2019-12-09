@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="PIXINVENT">
+	<title></title>
+	<link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
+	<link rel="shortcut icon" type="image/x-icon" href="./app-assets/images/ico/favicon.ico">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+
+	<!-- BEGIN: Vendor CSS-->
+	{{ style('/app-assets/vendors/css/vendors.min.css') }}
+	{{ style('/app-assets/vendors/css/charts/apexcharts.css') }}
+	<!-- END: Vendor CSS-->
+
+	<!-- BEGIN: Theme CSS-->
+	{{ style('/app-assets/css/bootstrap.css') }}
+	{{ style('/app-assets/css/bootstrap-extended.css') }}
+	{{ style('/app-assets/css/colors.css') }}
+	{{ style('/app-assets/css/components.css') }}
+	{{ style('/app-assets/css/themes/dark-layout.css') }}
+	{{ style('/app-assets/css/themes/semi-dark-layout.css') }}
+
+	<!-- BEGIN: Page CSS-->
+	{{ style('/app-assets/css/core/menu/menu-types/horizontal-menu.css') }}
+	{{ style('/app-assets/css/core/colors/palette-gradient.css') }}
+	{{ style('/app-assets/css/pages/dashboard-ecommerce.css') }}
+    <!-- BEGIN: Custom CSS-->
+    <link rel=" stylesheet" type="text/css" href="/assets/css/style.css">
+	<!-- END: Custom CSS-->
+	<style>
+		.horizontal-menu.navbar-floating:not(.blank-page) .app-content {
+			padding-top: 5rem;
+		}
+
+		.chat-application .chat-app-window .user-chats {
+			height: 100px !important;
+		}
+
+		.btn_remote_buttons {
+			padding: 54px 2.5rem !important;
+		}
+
+		.horizontal-menu footer {
+			margin-top: 20px;
+		}
+
+		.fonticon-container>.fonticon-wrap {
+			width: auto !important;
+		}
+	</style>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu 2-columns  navbar-floating footer-static  " data-open="hover"
+	data-menu="horizontal-menu" data-col="2-columns">
+
+	<!-- BEGIN: Header-->
+	<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-fixed navbar-shadow navbar-brand-center">
+		<div class="navbar-header d-xl-block d-none">
+			<ul class="nav navbar-nav flex-row">
+
+			</ul>
+		</div>
+		<div class="navbar-wrapper">
+			<div class="navbar-container content">
+				<div class="navbar-collapse" id="navbar-mobile">
+					<div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+						<ul class="nav navbar-nav">
+
+						</ul>
+						<ul class="nav navbar-nav bookmark-icons">
+
+						</ul>
+						<ul class="nav navbar-nav">
+
+						</ul>
+					</div>
+					<ul class="nav navbar-nav float-right">
+						<li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link"
+								id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="flag-icon flag-icon-us"></i>
+								<span class="selected-language">English</span>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdown-flag">
+								<a class="dropdown-item" href="#" data-language="en">
+									<i class="flag-icon flag-icon-us"></i>
+									English
+								</a>
+								<a class="dropdown-item" href="#" data-language="fr">
+									<i class="flag-icon flag-icon-fr"></i> French
+								</a>
+								<a class="dropdown-item" href="#" data-language="de">
+									<i class="flag-icon flag-icon-de"></i>
+									German
+								</a>
+								<a class="dropdown-item" href="#" data-language="pt">
+									<i class="flag-icon flag-icon-pt"></i>
+									Portuguese
+								</a>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link nav-link-expand">
+								<i class="ficon feather icon-maximize"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- END: Header-->
+
+
+	<!-- BEGIN: Content-->
+	<div class="app-content content">
+		<div class="content-overlay"></div>
+		<div class="header-navbar-shadow"></div>
+		<div class="content-wrapper">
+			<div class="content-header row">
+
+			</div>
+			<div class="content-body">
+				<section id="section_videos">
+
+					<div class="row">
+
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="embed-responsive embed-responsive-item embed-responsive-16by9">
+										<iframe class="img-thumbnail" src="https://www.youtube.com/embed/vTlSEMdC5qw" allowfullscreen=""></iframe>
+									</div>
+
+									<div class="card-body">
+										<div class="row">
+											<div class="col-3">
+												<div class="form-group">
+													<button type="button" class="btn_remote_buttons btn mb-1 btn-success btn-lg btn-block">Start</button>
+												</div>
+											</div>
+											<div class="col-3">
+												<!-- Block level buttons with icon -->
+												<div class="form-group">
+													<button type="button" class="btn_remote_buttons btn mb-1 btn-danger btn-icon btn-lg btn-block">Stop</button>
+												</div>
+											</div>
+											<div class="col-3">
+												<!-- Block level buttons with icon -->
+												<div class="form-group">
+													<button type="button" class="btn_remote_buttons btn mb-1 btn-info btn-icon btn-lg btn-block">Country</button>
+												</div>
+											</div>
+											<div class="col-3">
+												<!-- Block level buttons with icon -->
+												<div class="form-group">
+													<button type="button" class="btn_remote_buttons btn mb-1 btn-warning btn-icon btn-lg btn-block">I am: <i class="feather icon-home"></i> </button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="embed-responsive embed-responsive-item embed-responsive-16by9">
+										<iframe class="img-thumbnail" src="https://www.youtube.com/embed/vTlSEMdC5qw" allowfullscreen=""></iframe>
+									</div>
+									<div class="card chat-application">
+										<div class="chat-app-window">
+											<div class="user-chats ps">
+												<div class="chats">
+													<div class="chat chat-left">
+														<div class="chat-avatar mt-50">
+															<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
+																<img src="./app-assets/images/portrait/small/avatar-s-2.png" alt="avatar" height="40" width="40">
+															</a>
+														</div>
+														<div class="chat-body">
+															<div class="chat-content">
+																<p>Cake sesame snaps cupcake gingerbread</p>
+															</div>
+														</div>
+													</div>
+													<div class="chat">
+														<div class="chat-avatar">
+															<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
+																<img src="./app-assets/images/portrait/small/avatar-s-5.png" alt="avatar" height="40" width="40">
+															</a>
+														</div>
+														<div class="chat-body">
+															<div class="chat-content">
+																<p>Apple pie pie jujubes chupa chups muffin</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+													<div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+												</div>
+												<div class="ps__rail-y" style="top: 0px; right: 0px;">
+													<div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+												</div>
+											</div>
+											<div class="chat-footer">
+												<div class="card-body d-flex justify-content-around pt-0">
+													<input type="text" class="form-control mr-50" placeholder="Type your Message">
+													<button type="button" class="btn btn-icon btn-primary waves-effect waves-light"><i class="feather icon-navigation"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="section_menu">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+
+								<div class="card-content">
+									<div class="card-body">
+
+										<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-light navbar-shadow navbar-brand-center" data-nav="brand-center">
+											<div class="navbar-wrapper">
+												<div class="navbar-container content">
+													<div class="navbar-collapse" id="navbar-mobile-1">
+														<ul class="nav navbar-nav bookmark-icons mr-auto float-left">
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	<i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span>
+																</a>
+															</li>
+														</ul>
+														<ul class="nav navbar-nav float-right">
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	Start</span>
+																</a>
+															</li>
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	About Us</span>
+																</a>
+															</li>
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	Chat Features</span>
+																</a>
+															</li>
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	Faq's</span>
+																</a>
+															</li>
+															<li class="dropdown dropdown-language nav-item">
+																<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+																	Rules</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</nav>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="section_image_text_1">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="card-body">
+										<h5 class="display-5 mx-auto">Display 1</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<img class="img-fluid" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="card-body">
+										<h4 class="card-title">Bottom Image Cap</h4>
+										<p class="card-text">
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="section_image_text_2">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="card-body">
+										<h4 class="card-title">Bottom Image Cap</h4>
+										<p class="card-text">
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.
+										</p>
+										<button type="button" class="btn_remote_buttons btn mb-1 btn-success btn-lg btn-block">Start</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<img class="img-fluid mb-20" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<button type="button" class="btn_remote_buttons btn mt-2 mb-1 btn-success btn-lg btn-block">Start</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section id="section_block_column_block">
+					<div class="row">
+						<div class="col-3">
+							<div class="card">
+								<div class="card-header mb-1">
+									<h4 class="card-title">Card With Header And Footer</h4>
+								</div>
+								<div class="card-content">
+									<img class="img-fluid" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<div class="card-body">
+										<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+											the card's content.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="card">
+								<div class="card-header mb-1">
+									<h4 class="card-title">Card With Header And Footer</h4>
+								</div>
+								<div class="card-content">
+									<img class="img-fluid" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<div class="card-body">
+										<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+											the card's content.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="card">
+								<div class="card-header mb-1">
+									<h4 class="card-title">Card With Header And Footer</h4>
+								</div>
+								<div class="card-content">
+									<img class="img-fluid" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<div class="card-body">
+										<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+											the card's content.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="card">
+								<div class="card-header mb-1">
+									<h4 class="card-title">Card With Header And Footer</h4>
+								</div>
+								<div class="card-content">
+									<img class="img-fluid" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<div class="card-body">
+										<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+											the card's content.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="section_image_text_1">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="card-body">
+										<h4 class="card-title">Bottom Image Cap</h4>
+										<p class="card-text">
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.</br></br>
+											Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+											pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+											chocolate tart dragée.
+										</p>
+										<button type="button" class="btn_remote_buttons btn mb-1 btn-success btn-lg btn-block">Start</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-content">
+									<img class="img-fluid mb-20" src="./app-assets/images/slider/04.jpg" alt="Card image cap">
+									<button type="button" class="btn_remote_buttons btn mt-2 mb-1 btn-success btn-lg btn-block">Start</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- END: Content-->
+
+	<div class="sidenav-overlay"></div>
+	<div class="drag-target"></div>
+
+	<!-- BEGIN: Footer-->
+	<footer class="footer footer-static footer-light navbar-shadow">
+		<div class="row">
+			<div class="col-3">
+				<div class="row">
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="feather icon-facebook"></i>
+						</div>
+					</div>
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="feather  icon-instagram"></i>
+						</div>
+					</div>
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="fa fa-youtube-square"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<button type="button" class="btn mb-1 btn-warning btn-icon btn-lg btn-block">Upgrade to Premium</button>
+			</div>
+			<div class="col-3">
+				<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-light navbar-shadow navbar-brand-center" data-nav="brand-center">
+					<div class="navbar-wrapper">
+						<div class="navbar-container content">
+							<div class="navbar-collapse" id="navbar-mobile-1">
+								<ul class="nav navbar-nav float-right">
+									<li class="dropdown dropdown-language nav-item">
+										<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+											Start</span>
+										</a>
+									</li>
+									<li class="dropdown dropdown-language nav-item">
+										<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+											About Us</span>
+										</a>
+									</li>
+									<li class="dropdown dropdown-language nav-item">
+										<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+											Chat Features</span>
+										</a>
+									</li>
+									<li class="dropdown dropdown-language nav-item">
+										<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+											Faq's</span>
+										</a>
+									</li>
+									<li class="dropdown dropdown-language nav-item">
+										<a class="dropdown-toggle nav-link" id="dropdown-flag-1" href="#">
+											Rules</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="col-3">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum aspernatur accusamus, reiciendis commodi nesciunt cumque expedita soluta ullam non autem doloribus nihil quos fugiat vel veniam quaerat, quasi officiis explicabo.
+			</div>
+		</div>
+		<p class="clearfix blue-grey lighten-2 mb-0">
+			<span class="float-md-left d-block d-md-inline-block mt-25"> COPYRIGHT &copy; 2019 <a class="text-bold-800 grey darken-2" href="#" target="_blank">site.com,</a>All rights Reserved</span>
+			<span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+			<button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+		</p>
+	</footer>
+	<!-- END: Footer-->
+
+
+	<!-- BEGIN: Vendor JS-->
+	{{ script('app-assets/vendors/js/vendors.min.js') }}
+	<!-- BEGIN Vendor JS-->
+
+	<!-- BEGIN: Page Vendor JS-->
+{{ script('app-assets/vendors/js/ui/jquery.sticky.js') }}
+	{{ script('app-assets/vendors/js/charts/apexcharts.min.js') }}
+	<!-- END: Page Vendor JS-->
+
+	<!-- BEGIN: Theme JS-->
+	{{ script('app-assets/js/core/app-menu.js') }}
+	{{ script('app-assets/js/core/app.js') }}
+	{{ script('app-assets/js/scripts/components.js') }}
+	<!-- END: Theme JS-->
+
+	<!-- BEGIN: Page JS-->
+	{{ script('app-assets/js/scripts/pages/dashboard-ecommerce.js') }}
+	<!-- END: Page JS-->
+
+</body>
+<!-- END: Body-->
+
+</html>

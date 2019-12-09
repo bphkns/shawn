@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrfToken }}">
+    <title></title>
+    <link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="./app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link href="/theme/app-assets/vendors/css/vendors.min.css" rel="stylesheet">
+    <link href="/theme/app-assets/vendors/css/charts/apexcharts.css" rel="stylesheet">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link href="/theme/app-assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/colors.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/components.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/themes/dark-layout.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/themes/semi-dark-layout.css" rel="stylesheet">
+
+    <!-- BEGIN: Page CSS-->
+    <link href="/theme/app-assets/css/core/menu/menu-types/horizontal-menu.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/core/colors/palette-gradient.css" rel="stylesheet">
+    <link href="/theme/app-assets/css/pages/dashboard-ecommerce.css" rel="stylesheet">
+    <!-- BEGIN: Custom CSS-->
+    <!-- {{ style('/dist/app/css/app.css') }} -->
+
+    <!-- END: Custom CSS-->
+    <style>
+        .horizontal-menu.navbar-floating:not(.blank-page) .app-content {
+            padding-top: 10rem;
+        }
+
+        .chat-application .chat-app-window .user-chats {
+            height: 100px !important;
+        }
+
+        .btn_remote_buttons {
+            padding: 54px 2.5rem !important;
+        }
+
+        .horizontal-menu footer {
+            margin-top: 20px;
+        }
+
+        .fonticon-container>.fonticon-wrap {
+            width: auto !important;
+        }
+
+        .video-container {
+            background: black;
+        }
+
+        .modal-body {
+            /* display: flex; */
+        }
+
+        h5.display-5.mx-auto {
+            text-align: center;
+        }
+
+        .video-container {
+            max-height: 400px;
+        }
+    </style>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu 2-columns  navbar-floating footer-static  " data-open="hover"
+    data-menu="horizontal-menu" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-fixed navbar-shadow navbar-brand-center">
+        <div class="navbar-header d-xl-block d-none">
+            <ul class="nav navbar-nav flex-row">
+                <!-- @if(auth=='true')
+                <ul class="nav navbar-nav float-right">
+                    Welcome &nbsp; <strong>{{user}}</strong>&nbsp; , you are loggined.
+                </ul>
+                @endif -->
+            </ul>
+        </div>
+        <div class="navbar-wrapper">
+            <div class="navbar-container content">
+                <div id="navbar-mobile">
+                    <ul class="nav navbar-nav float-right">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link nav-link-expand">
+                                <i class="ficon feather icon-maximize"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+    <div class="horizontal-menu-wrapper ">
+        <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-without-dd-arrow navbar-shadow menu-border navbar-brand-center"
+            role="navigation" data-menu="menu-wrapper" data-nav="brand-center">
+            <!-- Horizontal menu content-->
+            <div class="navbar-container main-menu-content" data-menu="menu-container">
+                <!-- include ../../../includes/mixins-->
+                <ul class="nav navbar-nav" id="main-menu-navigation">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span id="ws_status"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="webcam-state" href="#">Debugging -> Cam: Stopped</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span>IP: <%= ip %> </span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span>Country: <%= country %></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="country-preference" href="#"><span>FavCountry: </span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="gender-preference" href="#"><span>FavGender: </span></a>
+                    </li>
+                    <li class="nav-item"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+
+            </div>
+            <div class="content-body">
+                <section id="section_videos">
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <video id="self"
+                                        class="embed-responsive embed-responsive-item embed-responsive-16by9 video-container"
+                                        muted autoplay></video>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button id="btn_connection_start" type="button"
+                                                        class=" btn mb-1 btn-success btn-lg btn-block btn-start-cam">Start</button>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <button id="btn_connection_end" type="button"
+                                                        class=" btn mb-1 btn-danger btn-icon btn-lg btn-block btn-stop-cam">Stop</button>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col">
+										<div class="form-group">
+											<button id="btn_set_country" type="button" class="btn mb-1 btn-info btn-icon btn-lg btn-block btn-view-country">Country</button>
+										</div>
+									</div> -->
+                                            <div class="col">
+                                                <div class="btn-group dropup btn-block">
+                                                    <button type="button" class=" btn mb-1 btn-info btn-icon btn-block"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        I am A
+                                                    </button>
+                                                    <div class="dropdown-menu" x-placement="top-start"
+                                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -140px, 0px);">
+                                                        <a class="dropdown-item btn_set_current_user_gender"
+                                                            data-gender="male" href="#">Male</a>
+                                                        <a class="dropdown-item btn_set_current_user_gender"
+                                                            data-gender="female" href="#">Female</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="btn-group dropup btn-block">
+                                                    <button type="button"
+                                                        class=" btn mb-1 btn-primary btn-icon btn-block"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        Show Me
+                                                    </button>
+                                                    <div class="dropdown-menu" x-placement="top-start"
+                                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -140px, 0px);">
+                                                        <a class="dropdown-item btn_set_gender" data-gender="male"
+                                                            href="#">Male</a>
+                                                        <a class="dropdown-item btn_set_gender" data-gender="female"
+                                                            href="#">Female</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <button type="button"
+                                                    class=" btn mb-1 btn-warning btn-icon btn-lg btn-block"
+                                                    data-toggle="modal"
+                                                    data-target="#modal_upgrade_to_premium">Upgrade</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="embed-responsive embed-responsive-item embed-responsive-16by9">
+                                        <video id="other"
+                                            class="embed-responsive embed-responsive-item embed-responsive-16by9 video-container"
+                                            muted autoplay></video>
+                                    </div>
+                                    <div class="card chat-application">
+                                        <div class="chat-app-window">
+                                            <div class="user-chats ps">
+                                                <div class="chats">
+                                                    <div class="chat chat-left">
+                                                        <div class="chat-avatar mt-50">
+                                                            <a class="avatar m-0" data-toggle="tooltip" href="#"
+                                                                data-placement="left" title="" data-original-title="">
+
+                                                            </a>
+                                                        </div>
+                                                        <div class="chat-body" id="chat-body">
+                                                            <div class="chat-content">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat">
+                                                        <div class="chat-avatar">
+                                                            <a class="avatar m-0" data-toggle="tooltip" href="#"
+                                                                data-placement="right" title="" data-original-title="">
+
+                                                            </a>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                                                    <div class="ps__thumb-x" tabindex="0"
+                                                        style="left: 0px; width: 0px;"></div>
+                                                </div>
+                                                <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                                                    <div class="ps__thumb-y" tabindex="0"
+                                                        style="top: 0px; height: 0px;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-footer">
+                                                <div class="card-body d-flex justify-content-around pt-0">
+                                                    <input type="text" class="form-control mr-50" id="chatMsg"
+                                                        placeholder="Type your Message">
+                                                    <button type="button" id="chat_btn"
+                                                        class="btn btn-icon btn-primary waves-effect waves-light"><i
+                                                            class="feather icon-navigation"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer
+	<footer class="footer footer-static footer-light navbar-shadow">
+		<div class="row">
+			<div class="col-3">
+				<div class="row">
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="feather icon-facebook"></i>
+						</div>
+					</div>
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="feather  icon-instagram"></i>
+						</div>
+					</div>
+					<div class="fonticon-container">
+						<div class="fonticon-wrap">
+							<i class="fa fa-youtube-square"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+			</div>
+			<div class="col-3">				
+			</div>
+			<div class="col-3">
+				<button type="button" class="btn mb-1 btn-warning btn-icon btn-lg btn-block" data-toggle="modal" data-target="#modal_upgrade_to_premium">Upgrade to Premium</button>
+			</div>
+		</div>
+		<p class="clearfix blue-grey lighten-2 mb-0">
+			<span class="float-md-left d-block d-md-inline-block mt-25"> COPYRIGHT &copy; 2019 <a class="text-bold-800 grey darken-2" href="#" target="_blank">wecam.tv,</a>All rights Reserved</span>
+			<span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i> By YourBusinessRocket.com</span>
+			<button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+		</p>
+	</footer> -->
+
+
+    <div class="modal fade text-left" id="modal_upgrade_to_premium" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel1">Upgrade to Premium</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="section_pricing_table" class="col-12">
+                            <table class="table data-list-view dataTable no-footer" id="DataTables_Table_0" role="grid">
+                                <tbody>
+                                    <tr role="row" class="odd">
+                                        <td class="product-name sorting_1">100 Tokens</td>
+                                        <td class="product-price">$1</td>
+                                        <td class="product-price"><button type="button"
+                                                class="btn btn-primary waves-effect waves-light btn-block"
+                                                data-dismiss="modal">Buy Now</button></td>
+
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="product-name sorting_1">250 Tokens</td>
+                                        <td class="product-price">$2</td>
+                                        <td class="product-price"><button type="button"
+                                                class="btn btn-primary waves-effect waves-light btn-block"
+                                                data-dismiss="modal">Buy Now</button></td>
+
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="product-name sorting_1">1,000 Tokens</td>
+                                        <td class="product-price">$5</td>
+                                        <td class="product-price"><button type="button"
+                                                class="btn btn-primary waves-effect waves-light btn-block"
+                                                data-dismiss="modal">Buy Now</button></td>
+
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="product-name sorting_1">5000 Tokens</td>
+                                        <td class="product-price">$10</td>
+                                        <td class="product-price"><button type="button"
+                                                class="btn btn-primary waves-effect waves-light btn-block"
+                                                data-dismiss="modal">Buy Now</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--- <div id="section_checkout_form" class="col-12">
+							checkout form
+						</div>  -->
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-primary waves-effect waves-light btn-block"
+                        data-dismiss="modal">Continue</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Footer-->
+
+    <!-- BEGIN: Country MODAL -->
+    <div class="modal fade text-left" id="country_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel17">Countries</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="result success"></div>
+                <div class="modal-body">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="list-group">
+                            @each(country in countries)
+                            @if($loop.index % 3 == 0)
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5>{{ country.country_name}}</h5>
+                                </div>
+                            </a>
+                            @endif
+                            @endeach
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="list-group">
+                            @each(country in countries)
+                            @if($loop.index % 3 == 1)
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5>{{ country.country_name}}</h5>
+                                </div>
+                            </a>
+                            @endif
+                            @endeach
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="list-group">
+                            @each(country in countries)
+                            @if($loop.index % 3 == 2)
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5>{{ country.country_name}}</h5>
+                                </div>
+                            </a>
+                            @endif
+                            @endeach
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-primary waves-effect waves-light btn-set-country">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END: Country MODAL -->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="theme/app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="theme/app-assets/vendors/js/ui/jquery.sticky.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="theme/app-assets/js/core/app-menu.js"></script>
+    <script src="theme/app-assets/js/core/app.js"></script>
+    <script src="theme/app-assets/js/scripts/components.js"></script>
+    <!-- END: Theme JS-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/index.js"></script>
+
+</body>
+<!-- END: Body-->
+
+</html>
