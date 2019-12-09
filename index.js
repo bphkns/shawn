@@ -44,56 +44,87 @@ io.on('connect', socket => {
 
     socket.on('start-pairing', (data, cb) => {
         const { id, preferences } = data;
-        if (!singleClients.length) {
+        // if (!singleClients.length) {
+        //     const client = connectedClients.get(id);
+        // client.preferences = preferences;
+        if (singleClients.indexOf(id) < 0)
+            singleClients.push(id);
+        //     cb();
+        //     return;
+        // }
+
+
+        if (preferences == null) {
             const client = connectedClients.get(id);
             client.preferences = preferences;
-            if (singleClients.indexOf(id) < 0)
-                singleClients.push(id);
+            const singleClientsCopy = singleClients.filter(sId => sId !== id);
+            const oId = singleClientsCopy.length ? singleClients.shift() : null;
+            if (oId) {
+                const otherClient = connectedClients.get(oId);
+                const room = {
+                    id: crypto.randomBytes(20).toString('hex'),
+                    clients: [client.id, otherClient.id]
+                };
+                client.room = room.id;
+                client.other = otherClient;
+                otherClient.room = room.id;
+                otherClient.other = client;
+                rooms.set(room.id, room);
+            }
             cb();
             return;
+
         }
 
-        if (!preferences) {
+        if (preferences) {
             const client = connectedClients.get(id);
             client.preferences = preferences;
-            if (singleClients[0] === id) {
-                cb();
-                return;
-            }
+            const singleClientsCopy = singleClients.filter(sId => {
+                if (sId === id) {
+                    return false;
+                }
 
-            const oId = singleClients.shift();
-            const otherClient = connectedClients.get(oId);
-            const room = {
-                id: crypto.randomBytes(20).toString('hex'),
-                clients: [client.id, otherClient.id]
-            };
-            client.room = room.id;
-            client.other = otherClient;
-            otherClient.room = room.id;
-            otherClient.other = client;
-            rooms.set(room.id, room);
+                const otherClient = connectedClients.get(sId);
+                if (preferences.prefGender && otherClient.preferences.gender !== preferences.prefGender) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            const oId = singleClientsCopy.length ? singleClients.shift() : null;
+            if (oId) {
+                const otherClient = connectedClients.get(oId);
+                const room = {
+                    id: crypto.randomBytes(20).toString('hex'),
+                    clients: [client.id, otherClient.id]
+                };
+                client.room = room.id;
+                client.other = otherClient;
+                otherClient.room = room.id;
+                otherClient.other = client;
+                rooms.set(room.id, room);
+            }
             cb();
             return;
-
         }
     });
 
 
     socket.on('offer', data => {
         const { offer, id } = data;
-        console.log(singleClients);
         const client = connectedClients.get(id);
-
         if (!client.room) {
             client.waiting = true;
             return;
         }
 
+
         if (client.other.waiting) {
             io.to(client.other.socket.id).emit('send-new-offer');
             client.other.waiting = undefined;
         }
-
+        singleClients = singleClients.filter(sId => sId !== id);
         io.to(client.other.socket.id).emit('offer', { offer });
         return;
     });

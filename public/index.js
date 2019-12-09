@@ -6,7 +6,14 @@ const chatBtn = document.getElementById('chat_btn');
 const chatLeftBody = document.getElementById('chat-left-body');
 const chatRightBody = document.getElementById('chat-right-body');
 const chatMsg = document.getElementById('chatMsg');
+const genderBtn = document.getElementById('genderBtn');
+const favGender = document.getElementById('favGender');
 const USER_DB = 'user';
+
+let gender = 'male';
+genderBtn.innerText += ': ' + gender.toUpperCase();
+let prefGender = null;
+
 
 chatMsg.disabled = true;
 chatBtn.disabled = true;
@@ -72,6 +79,7 @@ axios.get('/api')
 			const { answer } = data;
 			await selfPeer.setRemoteDescription(new RTCSessionDescription(answer));
 			chatBtn.disabled = false;
+			chatMsg.disabled = false;
 		});
 
 		//room closed
@@ -136,12 +144,33 @@ chatMsg.addEventListener('keyup', (event) => {
 	}
 });
 
+function changeGender(genderChange) {
+	gender = genderChange;
+	genderBtn.innerText = genderBtn.innerText.substring(0, genderBtn.innerText.indexOf(':')) + ': ' + gender.toUpperCase();
+}
+
+function changePrefGender(genderChange) {
+	prefGender = genderChange;
+	$('#favGender').text(favGender.innerHTML.substring(0, favGender.innerHTML.indexOf(':')) + ': ' + prefGender.toUpperCase());
+}
+
 
 startBtn.addEventListener('click', async () => {
 	startBtn.disabled = true;
 	endBtn.disabled = false;
 	if (socket) {
-		socket.emit('start-pairing', { id: user.id }, async () => {
+		let preferences = null;
+		if (gender != null || prefGender != null) {
+			preferences = {};
+			if (gender != null) {
+				preferences.gender = gender;
+			}
+
+			if (prefGender != null) {
+				preferences.prefGender = prefGender;
+			}
+		}
+		socket.emit('start-pairing', { id: user.id, preferences }, async () => {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				video: {
 					aspectRatio: '1.33',

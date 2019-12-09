@@ -131,7 +131,7 @@
                         <a class="country-preference" href="#"><span>FavCountry: </span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="gender-preference" href="#"><span>FavGender: </span></a>
+                        <a class="gender-preference" href="#" id="favGender"> FavGender: </a>
                     </li>
                     <li class="nav-item"></li>
                 </ul>
@@ -181,15 +181,17 @@
                                                 <div class="btn-group dropup btn-block">
                                                     <button type="button" class=" btn mb-1 btn-info btn-icon btn-block"
                                                         data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
+                                                        aria-expanded="false" id="genderBtn">
                                                         I am A
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="top-start"
                                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -140px, 0px);">
                                                         <a class="dropdown-item btn_set_current_user_gender"
-                                                            data-gender="male" href="#">Male</a>
+                                                            data-gender="male" onclick="changeGender('male')"
+                                                            href="javascript://">Male</a>
                                                         <a class="dropdown-item btn_set_current_user_gender"
-                                                            data-gender="female" href="#">Female</a>
+                                                            data-gender="female" onclick="changeGender('female')"
+                                                            href="javascript://">Female</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,9 +206,11 @@
                                                     <div class="dropdown-menu" x-placement="top-start"
                                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -140px, 0px);">
                                                         <a class="dropdown-item btn_set_gender" data-gender="male"
-                                                            href="#">Male</a>
+                                                            onclick="changePrefGender('male')"
+                                                            href="javascript://">Male</a>
                                                         <a class="dropdown-item btn_set_gender" data-gender="female"
-                                                            href="#">Female</a>
+                                                            onclick="changePrefGender('female')"
+                                                            href="javascript://">Female</a>
                                                     </div>
                                                 </div>
                                             </div>
